@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {RenderProps, StyleProps, createComponent} from './@create-component';
+import {CreateComponent} from './@create-component';
 
 type User = {
     name: string;
@@ -10,16 +10,7 @@ type UserDetailsProps = {
     user: User;
 };
 
-const Render: React.FC<RenderProps<UserDetailsProps>> = ({className, user}) => {
-    return (
-        <div className={className({user})}>
-            <div className="user-name">{user.name}</div>
-            <div className="user-age">{user.age}</div>
-        </div>
-    );
-};
-
-const Style: React.FC<StyleProps<UserDetailsProps>> = ({root}) => {
+export const UserDetails: CreateComponent<UserDetailsProps> = ({className, Component, root, user}) => {
     const css = `
         ${root} {
            margin: 10px;
@@ -35,13 +26,14 @@ const Style: React.FC<StyleProps<UserDetailsProps>> = ({root}) => {
     `;
 
     return (
-        <style scoped lang="scss">
-            {css}
-        </style>
+        <Component>
+            <style scoped lang="scss">
+                {css}
+            </style>
+            <div className={className({user})}>
+                <div className="user-name">{user.name}</div>
+                <div className="user-age">{user.age}</div>
+            </div>
+        </Component>
     );
 };
-
-export const UserDetails = createComponent({
-    Render,
-    Style,
-});

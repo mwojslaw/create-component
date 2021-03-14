@@ -1,3 +1,4 @@
+import * as React from 'react';
 export type ClassName = (variables: Record<string, unknown>) => string;
 
 export type RenderProps<T> = {
@@ -16,3 +17,5 @@ type CreateComponentConfig = {
 export const createComponent = (config: CreateComponentConfig): React.ComponentType => {
     return null;
 };
+
+export type CreateComponent<T> = React.ComponentType<RenderProps<T> & StyleProps<T> & {Component: React.ComponentType}>;
