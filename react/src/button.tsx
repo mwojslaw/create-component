@@ -3,10 +3,11 @@ import {RenderProps, StyleProps, createComponent} from './@create-component';
 
 type ButtonProps = {
     variant: 'primary' | 'secondary';
+    onClick: () => void;
 };
 
 const Render: React.FC<RenderProps<ButtonProps>> = ({className, children, variant}) => {
-    return <div className={className({variant})}>{children}</div>;
+    return <button className={className({variant})}>{children}</button>;
 };
 
 const Style: React.FC<StyleProps<ButtonProps>> = ({variant, root}) => {

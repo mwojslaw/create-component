@@ -1,18 +1,22 @@
-export type ClassName = (variables: Record<string, unknown>) => string;
+type DefaultStyleProperties = Record<string, unknown>;
 
-export type RenderProps<T> = {
-    className: ClassName;
-} & T;
+export type ClassName<S = DefaultStyleProperties> = (variables: S) => string;
 
-export type StyleProps<T> = {
+export type RenderProps<T, S = DefaultStyleProperties> = {
+    className: ClassName<S>;
+} & T &
+    S;
+
+export type StyleProps<T, S = DefaultStyleProperties> = {
     root: string;
-} & T;
+} & T &
+    S;
 
-type CreateComponentConfig = {
-    Render: React.ComponentType<any>;
-    Style: React.ComponentType<any>;
+type CreateComponentConfig<T, S = DefaultStyleProperties> = {
+    Render: React.ComponentType<RenderProps<T, S>>;
+    Style: React.ComponentType<StyleProps<T, S>>;
 };
 
-export const createComponent = (config: CreateComponentConfig): React.ComponentType => {
+export const createComponent = <T, S = DefaultStyleProperties>(config: CreateComponentConfig<T, S>): React.ComponentType<T> => {
     return null;
 };
